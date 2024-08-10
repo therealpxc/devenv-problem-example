@@ -1,8 +1,11 @@
 inputs:
   useless:
-    url: github:therealpxc/useless-flake
+    url: github:therealpxc/useless-flake/nopath
   nixpkgs:
     url: github:NixOS/nixpkgs/nixos-unstable
   brokepkgs:
+    #url: path:/Users/pxc/Documents/Code/nixpkgs
     url: github:therealpxc/nixpkgs/trufflehog-darwin-fix
-      #flake: false
+    flake: false
+  flake-parts:
+    url: github:hercules-ci/flake-parts
