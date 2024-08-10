@@ -4,6 +4,5 @@ inputs:
   nixpkgs:
     url: github:NixOS/nixpkgs/nixos-unstable
   brokepkgs:
-    url: path:/Users/patcal04/Sandbox/nixpkgs
-    #url: github:therealpxc/nixpkgs/trufflehog-darwin-fix
+    url: github:therealpxc/nixpkgs/trufflehog-darwin-fix
       #flake: false

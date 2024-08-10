@@ -13,8 +13,8 @@ in
 
     # The command to execute (mandatory):
     # entry = "${brokepkgs.trufflehog}/bin/trufflehog --no-update --help";
-    # entry = "${inputs.useless.packages.${pkgs.stdenv.hostPlatform}.trufflehog}/bin/trufflehog --no-update --help";
-    entry = "${pkgs.trufflehog}/bin/trufflehog --no-update --help";
+    entry = "${inputs.useless.packages.${pkgs.stdenv.hostPlatform}.trufflehog}/bin/trufflehog --no-update --help";
+    # entry = "${pkgs.trufflehog}/bin/trufflehog --no-update --help";
 
     # The pattern of files to run on (default: "" (all))
     # see also https://pre-commit.com/#hooks-files
