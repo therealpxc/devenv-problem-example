@@ -1,37 +1,40 @@
 { pkgs, lib, config, inputs, ... }:
 
+let
+  brokepkgs = import inputs.brokepkgs { system = pkgs.stdenv.system; };
+in
 {
-  # https://devenv.sh/basics/
-  env.GREET = "devenv";
 
-  # https://devenv.sh/packages/
-  packages = [ pkgs.git ];
+  pre-commit.hooks.trufflehog = {
+    enable = true;
 
-  # https://devenv.sh/scripts/
-  scripts.hello.exec = "echo hello from $GREET";
+    # The name of the hook (appears on the report table):
+    name = "Scan repository for secrets";
 
-  enterShell = ''
-    hello
-    git --version
-  '';
+    # The command to execute (mandatory):
+    # entry = "${brokepkgs.trufflehog}/bin/trufflehog --no-update --help";
+    # entry = "${inputs.useless.packages.${pkgs.stdenv.hostPlatform}.trufflehog}/bin/trufflehog --no-update --help";
+    entry = "${pkgs.trufflehog}/bin/trufflehog --no-update --help";
 
-  # https://devenv.sh/tests/
-  enterTest = ''
-    echo "Running tests"
-    git --version | grep "2.42.0"
-  '';
+    # The pattern of files to run on (default: "" (all))
+    # see also https://pre-commit.com/#hooks-files
+    # files = "\\.(c|h)$";
 
-  # https://devenv.sh/services/
-  # services.postgres.enable = true;
+    # List of file types to run on (default: [ "file" ] (all files))
+    # see also https://pre-commit.com/#filtering-files-with-types
+    # You probably only need to specify one of `files` or `types`:
+    # types = [ "text" "c" ];
 
-  # https://devenv.sh/languages/
-  # languages.nix.enable = true;
+    # Exclude files that were matched by these patterns (default: [ ] (none)):
+    # excludes = [ "irrelevant\\.c" ];
 
-  # https://devenv.sh/pre-commit-hooks/
-  # pre-commit.hooks.shellcheck.enable = true;
+    # The language of the hook - tells pre-commit
+    # how to install the hook (default: "system")
+    # see also https://pre-commit.com/#supported-languages
+    language = "system";
 
-  # https://devenv.sh/processes/
-  # processes.ping.exec = "ping example.com";
-
-  # See full reference at https://devenv.sh/reference/options/
+    # Set this to false to not pass the changed files
+    # to the command (default: true):
+    pass_filenames = false;
+  };
 }
